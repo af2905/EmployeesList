@@ -4,15 +4,15 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Specialty {
-    private UUID id;
+    private int id;
     private String title;
 
-    public Specialty(UUID id, String title) {
+    public Specialty(int id, String title) {
         this.id = id;
         this.title = title;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 

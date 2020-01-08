@@ -1,5 +1,6 @@
 package ru.job4jlistofemployees;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,9 +60,18 @@ public class SpecialtiesFragment extends Fragment {
         public void onBindViewHolder(@NonNull SpecialtyHolder holder, int position) {
             final Specialty specialty = this.specialties.get(position);
             TextView id = holder.view.findViewById(R.id.specialty_id);
-            id.setText(String.valueOf(position+1));
+            id.setText(String.valueOf(position + 1));
             TextView title = holder.view.findViewById(R.id.specialty_title);
-            title.setText(specialty.getTitle());
+            title.setText(specialty.getTitle() + "s");
+
+            title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), WorkersActivity.class);
+                    intent.putExtra("specialtyId", specialty.getId());
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
