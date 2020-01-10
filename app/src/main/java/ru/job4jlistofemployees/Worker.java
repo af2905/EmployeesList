@@ -17,10 +17,6 @@ public class Worker {
         return photo;
     }
 
-    public void setPhoto(int photo) {
-        this.photo = photo;
-    }
-
     public String getName() {
         return name;
     }
@@ -33,15 +29,7 @@ public class Worker {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public int getSpecialtyId() {
         return specialtyId;
-    }
-
-    public void setSpecialtyId(int specialtyId) {
-        this.specialtyId = specialtyId;
     }
 }

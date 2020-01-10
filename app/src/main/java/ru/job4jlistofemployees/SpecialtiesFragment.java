@@ -18,6 +18,7 @@ import java.util.List;
 public class SpecialtiesFragment extends Fragment {
     private RecyclerView specialtiesRecyclerView;
     private SpecialtyAdapter adapter;
+    public final static String SPECIALTY_ID = "specialtyId";
 
     @Nullable
     @Override
@@ -68,7 +69,7 @@ public class SpecialtiesFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), WorkersActivity.class);
-                    intent.putExtra("specialtyId", specialty.getId());
+                    intent.putExtra(SPECIALTY_ID, specialty.getId());
                     startActivity(intent);
                 }
             });

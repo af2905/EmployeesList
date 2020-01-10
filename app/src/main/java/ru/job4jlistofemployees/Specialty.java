@@ -1,7 +1,7 @@
 package ru.job4jlistofemployees;
 
 import java.util.Objects;
-import java.util.UUID;
+
 
 public class Specialty {
     private int id;

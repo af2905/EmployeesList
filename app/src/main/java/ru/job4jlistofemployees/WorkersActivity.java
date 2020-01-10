@@ -6,6 +6,7 @@ public class WorkersActivity extends BaseActivity {
 
     @Override
     public Fragment loadFrg() {
-        return new WorkersFragment();
+        return WorkersFragment.of(getIntent()
+                .getIntExtra(SpecialtiesFragment.SPECIALTY_ID, 0));
     }
 }

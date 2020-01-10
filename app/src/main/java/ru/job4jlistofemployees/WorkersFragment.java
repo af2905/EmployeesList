@@ -1,11 +1,11 @@
 package ru.job4jlistofemployees;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,10 +20,14 @@ public class WorkersFragment extends Fragment {
     private RecyclerView workersRecyclerView;
     private WorkerAdapter adapter;
     List<Worker> workersSelectiveList = new ArrayList<>();
+    public final static String PERSON_NAME = "name";
+    public final static String PERSON_PHOTO = "photo";
+    public final static String PERSON_BIRTH = "birth";
+    public final static String PERSON_SPECIALTY_ID = "specialtyId";
+
 
     @Nullable
     @Override
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -67,7 +71,12 @@ public class WorkersFragment extends Fragment {
             name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Нажато: " + v.getId(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra(PERSON_NAME, worker.getName());
+                    intent.putExtra(PERSON_PHOTO, worker.getPhoto());
+                    intent.putExtra(PERSON_BIRTH, worker.getDateOfBirth());
+                    intent.putExtra(PERSON_SPECIALTY_ID, worker.getSpecialtyId());
+                    startActivity(intent);
                 }
             });
         }
@@ -81,7 +90,7 @@ public class WorkersFragment extends Fragment {
     private void updateUI() {
         WorkersStore store = WorkersStore.get(getActivity());
         List<Worker> workers = store.getWorkers();
-        int specialtyId = getActivity().getIntent().getIntExtra("specialtyId", 0);
+        int specialtyId = getArguments().getInt(SpecialtiesFragment.SPECIALTY_ID);
         for (Worker worker : workers) {
             if (worker.getSpecialtyId() == specialtyId) {
                 workersSelectiveList.add(worker);
@@ -89,5 +98,14 @@ public class WorkersFragment extends Fragment {
         }
         adapter = new WorkerAdapter(workersSelectiveList);
         workersRecyclerView.setAdapter(adapter);
+    }
+
+
+    public static WorkersFragment of(int index) {
+        WorkersFragment workersFragment = new WorkersFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(SpecialtiesFragment.SPECIALTY_ID, index);
+        workersFragment.setArguments(bundle);
+        return workersFragment;
     }
 }
