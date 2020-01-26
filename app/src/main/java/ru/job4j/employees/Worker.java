@@ -1,4 +1,6 @@
-package ru.job4jlistofemployees;
+package ru.job4j.employees;
+
+import java.util.Objects;
 
 public class Worker {
     private int photo;
@@ -31,5 +33,21 @@ public class Worker {
 
     public int getSpecialtyId() {
         return specialtyId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Worker worker = (Worker) o;
+        return photo == worker.photo &&
+                specialtyId == worker.specialtyId &&
+                Objects.equals(name, worker.name) &&
+                Objects.equals(dateOfBirth, worker.dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(photo, name, dateOfBirth, specialtyId);
     }
 }

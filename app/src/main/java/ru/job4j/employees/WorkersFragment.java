@@ -1,4 +1,4 @@
-package ru.job4jlistofemployees;
+package ru.job4j.employees;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +25,11 @@ public class WorkersFragment extends Fragment {
     public final static String PERSON_BIRTH = "birth";
     public final static String PERSON_SPECIALTY_ID = "specialtyId";
 
+    private WorkerSelect select;
+
+    public interface WorkerSelect {
+        void selected(int index);
+    }
 
     @Nullable
     @Override
@@ -33,9 +38,31 @@ public class WorkersFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.workers_fragment, container, false);
         workersRecyclerView = view.findViewById(R.id.workers);
+        workersRecyclerView.setHasFixedSize(true);
         workersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;
+    }
+
+    private void updateUI() {
+        WorkersStore store = WorkersStore.get(getActivity());
+        List<Worker> workers = store.getWorkers();
+        int specialtyId = getArguments().getInt(SpecialtiesFragment.SPECIALTY_ID);
+        for (Worker worker : workers) {
+            if (worker.getSpecialtyId() == specialtyId) {
+                workersSelectiveList.add(worker);
+            }
+        }
+        adapter = new WorkerAdapter(workersSelectiveList);
+        workersRecyclerView.setAdapter(adapter);
+    }
+
+    public static WorkersFragment of(int index) {
+        WorkersFragment workersFragment = new WorkersFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(SpecialtiesFragment.SPECIALTY_ID, index);
+        workersFragment.setArguments(bundle);
+        return workersFragment;
     }
 
     public class WorkerHolder extends RecyclerView.ViewHolder {
@@ -85,27 +112,5 @@ public class WorkersFragment extends Fragment {
         public int getItemCount() {
             return this.workers.size();
         }
-    }
-
-    private void updateUI() {
-        WorkersStore store = WorkersStore.get(getActivity());
-        List<Worker> workers = store.getWorkers();
-        int specialtyId = getArguments().getInt(SpecialtiesFragment.SPECIALTY_ID);
-        for (Worker worker : workers) {
-            if (worker.getSpecialtyId() == specialtyId) {
-                workersSelectiveList.add(worker);
-            }
-        }
-        adapter = new WorkerAdapter(workersSelectiveList);
-        workersRecyclerView.setAdapter(adapter);
-    }
-
-
-    public static WorkersFragment of(int index) {
-        WorkersFragment workersFragment = new WorkersFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(SpecialtiesFragment.SPECIALTY_ID, index);
-        workersFragment.setArguments(bundle);
-        return workersFragment;
     }
 }

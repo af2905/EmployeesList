@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.job4jlistofemployees">
+    package="ru.job4j.employees">
 
     <application
         android:allowBackup="true"
@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BaseActivity" />
-        <activity android:name=".WorkersActivity" />
-        <activity android:name=".DetailActivity"/>
+        <activity android:name="ru.job4j.employees.BaseActivity" />
+        <activity android:name="ru.job4j.employees.WorkersActivity" />
+        <activity android:name="ru.job4j.employees.DetailActivity"/>
 
-        <activity android:name=".SpecialtiesActivity">
+        <activity android:name="ru.job4j.employees.SpecialtiesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

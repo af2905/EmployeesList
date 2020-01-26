@@ -1,4 +1,4 @@
-package ru.job4jlistofemployees;
+package ru.job4j.employees;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import java.util.List;
 
 public class DetailFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,

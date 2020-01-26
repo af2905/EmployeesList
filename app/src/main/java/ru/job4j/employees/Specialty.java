@@ -1,4 +1,4 @@
-package ru.job4jlistofemployees;
+package ru.job4j.employees;
 
 import java.util.Objects;
 
