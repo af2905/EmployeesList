@@ -26,7 +26,7 @@ public class SpecialtiesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.specialties_fragment, container, false);
+        View view = inflater.inflate(R.layout.specialties, container, false);
         specialtiesRecyclerView = view.findViewById(R.id.specialties);
         specialtiesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
@@ -53,22 +53,20 @@ public class SpecialtiesFragment extends Fragment {
         @Override
         public SpecialtyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.info_specialty, parent, false);
+            View view = inflater.inflate(R.layout.specialty, parent, false);
             return new SpecialtyHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull SpecialtyHolder holder, int position) {
             final Specialty specialty = this.specialties.get(position);
-            TextView id = holder.view.findViewById(R.id.specialty_id);
-            id.setText(String.valueOf(position + 1));
-            TextView title = holder.view.findViewById(R.id.specialty_title);
+            TextView title = holder.view.findViewById(R.id.specialty);
             title.setText(specialty.getTitle() + "s");
 
             title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), WorkersActivity.class);
+                    Intent intent = new Intent(getActivity(), EmployeesActivity.class);
                     intent.putExtra(SPECIALTY_ID, specialty.getId());
                     startActivity(intent);
                 }

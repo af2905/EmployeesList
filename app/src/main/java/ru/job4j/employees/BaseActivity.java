@@ -9,13 +9,13 @@ import androidx.fragment.app.FragmentManager;
 
 public abstract class BaseActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(@Nullable Bundle saved) {
+        super.onCreate(saved);
         setContentView(R.layout.host_frg);
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.findFragmentById(R.id.fragment_container) == null) {
+        if (fm.findFragmentById(R.id.content) == null) {
             fm.beginTransaction()
-                    .add(R.id.fragment_container, loadFrg())
+                    .add(R.id.content, loadFrg())
                     .commit();
         }
     }

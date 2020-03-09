@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="ru.job4j.employees.BaseActivity" />
-        <activity android:name="ru.job4j.employees.WorkersActivity" />
-        <activity android:name="ru.job4j.employees.DetailActivity"/>
-
-        <activity android:name="ru.job4j.employees.SpecialtiesActivity">
+        <activity android:name="ru.job4j.employees.EmployeesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="ru.job4j.employees.EmployeeActivity" />
+
+        <activity android:name="ru.job4j.employees.SpecialtiesActivity" />
     </application>
 
 </manifest>
