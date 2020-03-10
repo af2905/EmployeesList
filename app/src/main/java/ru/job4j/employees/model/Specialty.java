@@ -1,4 +1,4 @@
-package ru.job4j.employees;
+package ru.job4j.employees.model;
 
 import java.util.Objects;
 
@@ -22,8 +22,12 @@ public class Specialty {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Specialty specialty = (Specialty) o;
         return Objects.equals(id, specialty.id);
     }

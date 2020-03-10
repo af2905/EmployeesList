@@ -1,4 +1,4 @@
-package ru.job4j.employees;
+package ru.job4j.employees.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ru.job4j.employees.R;
+
 public class EmployeesFragment extends Fragment {
+
     private EmployeeSelect select;
 
     public interface EmployeeSelect {
@@ -21,8 +24,7 @@ public class EmployeesFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.employees, container, false);
         RecyclerView recycler = view.findViewById(R.id.recycler);
@@ -34,7 +36,7 @@ public class EmployeesFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.select = (EmployeeSelect) context;
     }

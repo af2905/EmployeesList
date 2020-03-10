@@ -1,11 +1,14 @@
-package ru.job4j.employees;
+package ru.job4j.employees.fragments;
 
 import android.content.Intent;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import ru.job4j.employees.R;
+
 public class EmployeesActivity extends BaseActivity implements EmployeesFragment.EmployeeSelect {
+
     @Override
     public Fragment loadFrg() {
         return new EmployeesFragment();

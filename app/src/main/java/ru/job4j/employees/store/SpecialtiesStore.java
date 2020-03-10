@@ -1,9 +1,11 @@
-package ru.job4j.employees;
+package ru.job4j.employees.store;
 
 import android.content.Context;
 
 import java.util.Arrays;
 import java.util.List;
+
+import ru.job4j.employees.model.Specialty;
 
 public class SpecialtiesStore {
     private static SpecialtiesStore instance;
@@ -18,10 +20,10 @@ public class SpecialtiesStore {
 
     private SpecialtiesStore(Context context) {
         specialties = Arrays.asList(
-                new Specialty(00001, "Java programmer"),
-                new Specialty(00002, "C+ programmer"),
-                new Specialty(00003, "Python programmer"),
-                new Specialty(00004, "Android developer"));
+                new Specialty(1, "Java programmer"),
+                new Specialty(2, "C+ programmer"),
+                new Specialty(3, "Python programmer"),
+                new Specialty(4, "Android developer"));
     }
 
     public List<Specialty> getSpecialties() {

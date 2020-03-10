@@ -1,4 +1,4 @@
-package ru.job4j.employees;
+package ru.job4j.employees.fragments;
 
 import androidx.fragment.app.Fragment;
 

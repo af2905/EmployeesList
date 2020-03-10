@@ -1,4 +1,4 @@
-package ru.job4j.employees;
+package ru.job4j.employees.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ru.job4j.employees.R;
+import ru.job4j.employees.model.Specialty;
+import ru.job4j.employees.store.SpecialtiesStore;
+
 public class SpecialtiesFragment extends Fragment {
     private RecyclerView specialtiesRecyclerView;
     private SpecialtyAdapter adapter;
-    public final static String SPECIALTY_ID = "specialtyId";
+    private final static String SPECIALTY_ID = "specialtyId";
 
     @Nullable
     @Override
@@ -33,10 +37,10 @@ public class SpecialtiesFragment extends Fragment {
         return view;
     }
 
-    public class SpecialtyHolder extends RecyclerView.ViewHolder {
+    class SpecialtyHolder extends RecyclerView.ViewHolder {
         private View view;
 
-        public SpecialtyHolder(@NonNull View itemView) {
+        SpecialtyHolder(@NonNull View itemView) {
             super(itemView);
             this.view = itemView;
         }
@@ -45,7 +49,7 @@ public class SpecialtiesFragment extends Fragment {
     public class SpecialtyAdapter extends RecyclerView.Adapter<SpecialtyHolder> {
         private final List<Specialty> specialties;
 
-        public SpecialtyAdapter(List<Specialty> specialties) {
+        SpecialtyAdapter(List<Specialty> specialties) {
             this.specialties = specialties;
         }
 
@@ -61,15 +65,12 @@ public class SpecialtiesFragment extends Fragment {
         public void onBindViewHolder(@NonNull SpecialtyHolder holder, int position) {
             final Specialty specialty = this.specialties.get(position);
             TextView title = holder.view.findViewById(R.id.specialty);
-            title.setText(specialty.getTitle() + "s");
+            title.setText(String.format("%ss", specialty.getTitle()));
 
-            title.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), EmployeesActivity.class);
-                    intent.putExtra(SPECIALTY_ID, specialty.getId());
-                    startActivity(intent);
-                }
+            title.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), EmployeesActivity.class);
+                intent.putExtra(SPECIALTY_ID, specialty.getId());
+                startActivity(intent);
             });
         }
 

@@ -1,4 +1,4 @@
-package ru.job4j.employees;
+package ru.job4j.employees.fragments;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ru.job4j.employees.R;
+import ru.job4j.employees.model.Employee;
+import ru.job4j.employees.store.EmployeesStore;
+
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeeHolder> {
-    private final EmployeesStore store = EmployeesStore.getInstance();
+
+    private final EmployeesStore employeesStore = EmployeesStore.getInstance();
+
     private final EmployeesFragment.EmployeeSelect select;
 
-    public EmployeeAdapter(EmployeesFragment.EmployeeSelect select) {
+    EmployeeAdapter(EmployeesFragment.EmployeeSelect select) {
         this.select = select;
     }
 
@@ -27,25 +33,25 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
     @Override
     public void onBindViewHolder(@NonNull EmployeeHolder holder, int position) {
-        holder.bind(store.get(position), position);
+        holder.bind(employeesStore.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return store.size();
+        return employeesStore.size();
     }
 
-    public static class EmployeeHolder extends RecyclerView.ViewHolder {
+    static class EmployeeHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final EmployeesFragment.EmployeeSelect select;
 
-        public EmployeeHolder(@NonNull View itemView, EmployeesFragment.EmployeeSelect select) {
+        EmployeeHolder(@NonNull View itemView, EmployeesFragment.EmployeeSelect select) {
             super(itemView);
             this.select = select;
             name = itemView.findViewById(R.id.name);
         }
 
-        public void bind(Employee employee, int index) {
+        void bind(Employee employee, int index) {
             name.setText(employee.getName());
             name.setOnClickListener(event -> select.selected(index));
         }

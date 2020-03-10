@@ -3,4 +3,6 @@
     <string name="name">name</string>
     <string name="date_of_birth">date of birth</string>
     <string name="specialty">specialty</string>
+    <string name="text_view">TextView</string>
+    <string name="photo">photo</string>
 </resources>
