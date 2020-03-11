@@ -1,33 +1,39 @@
 package ru.job4j.employees.store;
 
-import android.content.Context;
-
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.job4j.employees.model.Specialty;
 
 public class SpecialtiesStore {
-    private static SpecialtiesStore instance;
-    private List<Specialty> specialties;
+    private static final SpecialtiesStore INST = new SpecialtiesStore();
+    private final List<Specialty> list = new ArrayList<>();
 
-    public static SpecialtiesStore get(Context context) {
-        if (instance == null) {
-            instance = new SpecialtiesStore(context);
-        }
-        return instance;
+    public static SpecialtiesStore getInstance() {
+        return INST;
     }
 
-    private SpecialtiesStore(Context context) {
-        specialties = Arrays.asList(
-                new Specialty(1, "Java programmer"),
-                new Specialty(2, "C+ programmer"),
-                new Specialty(3, "Python programmer"),
-                new Specialty(4, "Android developer"));
+    private SpecialtiesStore() {
+        list.add(new Specialty(1, "Java programmer"));
+        list.add(new Specialty(2, "C+ programmer"));
+        list.add(new Specialty(3, "Python programmer"));
+        list.add(new Specialty(4, "Android developer"));
     }
 
     public List<Specialty> getSpecialties() {
-        return specialties;
+        return list;
     }
 
+    public Specialty get(int index) {
+        return list.get(index);
+    }
+
+    public void add(Specialty specialty) {
+        list.add(specialty);
+    }
+
+    public int size() {
+        return list.size();
+    }
 }
+

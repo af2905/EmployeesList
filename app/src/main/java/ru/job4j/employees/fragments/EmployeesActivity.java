@@ -11,7 +11,11 @@ public class EmployeesActivity extends BaseActivity implements EmployeesFragment
 
     @Override
     public Fragment loadFrg() {
-        return new EmployeesFragment();
+        return EmployeesFragment
+                .of(getIntent()
+                        .getIntExtra(SpecialtiesFragment.SPECIALTY_ID, -1),
+                getIntent()
+                        .getIntExtra(SpecialtiesFragment.SPECIALTY_POSITION, -1));
     }
 
     @Override

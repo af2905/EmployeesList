@@ -20,33 +20,26 @@ import ru.job4j.employees.model.Specialty;
 import ru.job4j.employees.store.SpecialtiesStore;
 
 public class SpecialtiesFragment extends Fragment {
-    private RecyclerView specialtiesRecyclerView;
+    private RecyclerView recyclerView;
     private SpecialtyAdapter adapter;
-    private final static String SPECIALTY_ID = "specialtyId";
+    private final SpecialtiesStore specialtiesStore = SpecialtiesStore.getInstance();
+    final static String SPECIALTY_ID = "id";
+    final static String SPECIALTY_POSITION = "position";
 
     @Nullable
     @Override
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.specialties, container, false);
-        specialtiesRecyclerView = view.findViewById(R.id.specialties);
-        specialtiesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        updateUI();
+        recyclerView = view.findViewById(R.id.specialties);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new SpecialtyAdapter(specialtiesStore.getSpecialties());
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
-    class SpecialtyHolder extends RecyclerView.ViewHolder {
-        private View view;
-
-        SpecialtyHolder(@NonNull View itemView) {
-            super(itemView);
-            this.view = itemView;
-        }
-    }
-
-    public class SpecialtyAdapter extends RecyclerView.Adapter<SpecialtyHolder> {
+    public class SpecialtyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private final List<Specialty> specialties;
 
         SpecialtyAdapter(List<Specialty> specialties) {
@@ -55,21 +48,21 @@ public class SpecialtiesFragment extends Fragment {
 
         @NonNull
         @Override
-        public SpecialtyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View view = inflater.inflate(R.layout.specialty, parent, false);
-            return new SpecialtyHolder(view);
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new RecyclerView.ViewHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.specialty, parent, false)) {
+            };
         }
 
         @Override
-        public void onBindViewHolder(@NonNull SpecialtyHolder holder, int position) {
-            final Specialty specialty = this.specialties.get(position);
-            TextView title = holder.view.findViewById(R.id.specialty);
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            final Specialty specialty = specialties.get(position);
+            TextView title = holder.itemView.findViewById(R.id.specialty);
             title.setText(String.format("%ss", specialty.getTitle()));
-
             title.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), EmployeesActivity.class);
                 intent.putExtra(SPECIALTY_ID, specialty.getId());
+                intent.putExtra(SPECIALTY_POSITION, position);
                 startActivity(intent);
             });
         }
@@ -78,12 +71,5 @@ public class SpecialtiesFragment extends Fragment {
         public int getItemCount() {
             return this.specialties.size();
         }
-    }
-
-    private void updateUI() {
-        SpecialtiesStore store = SpecialtiesStore.get(getActivity());
-        List<Specialty> specialties = store.getSpecialties();
-        adapter = new SpecialtyAdapter(specialties);
-        specialtiesRecyclerView.setAdapter(adapter);
     }
 }

@@ -1,5 +1,6 @@
 package ru.job4j.employees.fragments;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +9,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import ru.job4j.employees.R;
 import ru.job4j.employees.model.Employee;
-import ru.job4j.employees.store.EmployeesStore;
 
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeeHolder> {
-
-    private final EmployeesStore employeesStore = EmployeesStore.getInstance();
-
+    private static final String TAG = "log";
+    private final List<Employee> employees;
     private final EmployeesFragment.EmployeeSelect select;
 
-    EmployeeAdapter(EmployeesFragment.EmployeeSelect select) {
+    EmployeeAdapter(List<Employee> employees, EmployeesFragment.EmployeeSelect select) {
+        this.employees = employees;
         this.select = select;
     }
+
 
     @NonNull
     @Override
@@ -33,12 +36,13 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
     @Override
     public void onBindViewHolder(@NonNull EmployeeHolder holder, int position) {
-        holder.bind(employeesStore.get(position), position);
+        Log.d(TAG, "position: " + position);
+        holder.bind(employees.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return employeesStore.size();
+        return employees.size();
     }
 
     static class EmployeeHolder extends RecyclerView.ViewHolder {
