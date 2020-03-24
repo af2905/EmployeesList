@@ -24,7 +24,6 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         this.select = select;
     }
 
-
     @NonNull
     @Override
     public EmployeeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,7 +56,8 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
         void bind(Employee employee, int index) {
             name.setText(employee.getName());
-            name.setOnClickListener(event -> select.selected(index));
+            name.setOnClickListener(event -> select.selected(
+                    index, employee.getId(), employee.getSpecialty().getTitle()));
         }
     }
 }

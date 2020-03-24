@@ -17,14 +17,13 @@ import java.util.List;
 
 import ru.job4j.employees.R;
 import ru.job4j.employees.model.Specialty;
-import ru.job4j.employees.store.SpecialtiesStore;
+import ru.job4j.employees.store.InitSql;
+import ru.job4j.employees.store.SqlStore;
 
 public class SpecialtiesFragment extends Fragment {
     private RecyclerView recyclerView;
     private SpecialtyAdapter adapter;
-    private final SpecialtiesStore specialtiesStore = SpecialtiesStore.getInstance();
     final static String SPECIALTY_ID = "id";
-    final static String SPECIALTY_POSITION = "position";
 
     @Nullable
     @Override
@@ -34,7 +33,8 @@ public class SpecialtiesFragment extends Fragment {
         View view = inflater.inflate(R.layout.specialties, container, false);
         recyclerView = view.findViewById(R.id.specialties);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new SpecialtyAdapter(specialtiesStore.getSpecialties());
+        InitSql.getInstance(getContext()).init();
+        adapter = new SpecialtyAdapter(SqlStore.getInstance(getContext()).getSpecialties());
         recyclerView.setAdapter(adapter);
         return view;
     }
@@ -62,7 +62,6 @@ public class SpecialtiesFragment extends Fragment {
             title.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), EmployeesActivity.class);
                 intent.putExtra(SPECIALTY_ID, specialty.getId());
-                intent.putExtra(SPECIALTY_POSITION, position);
                 startActivity(intent);
             });
         }

@@ -13,21 +13,21 @@ public class EmployeesActivity extends BaseActivity implements EmployeesFragment
     public Fragment loadFrg() {
         return EmployeesFragment
                 .of(getIntent()
-                        .getIntExtra(SpecialtiesFragment.SPECIALTY_ID, -1),
-                getIntent()
-                        .getIntExtra(SpecialtiesFragment.SPECIALTY_POSITION, -1));
+                        .getIntExtra(SpecialtiesFragment.SPECIALTY_ID, -1));
     }
 
     @Override
-    public void selected(int index) {
+    public void selected(int index, int id, String specialty) {
         if (findViewById(R.id.detail) == null) {
             Intent intent = new Intent(this, EmployeeActivity.class);
             intent.putExtra("index", index);
-            startActivity(intent);
+            intent.putExtra("id", id);
+            intent.putExtra("specialty", specialty);
+                    startActivity(intent);
         } else {
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction()
-                    .replace(R.id.detail, EmployeeFragment.of(index))
+                    .replace(R.id.detail, EmployeeFragment.of(index, id, specialty))
                     .commit();
         }
     }

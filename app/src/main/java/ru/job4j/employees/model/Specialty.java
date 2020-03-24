@@ -12,12 +12,27 @@ public class Specialty {
         this.title = title;
     }
 
+    public Specialty(String title) {
+        this.title = title;
+    }
+
+    public Specialty() {
+    }
+
     public int getId() {
         return id;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -29,11 +44,12 @@ public class Specialty {
             return false;
         }
         Specialty specialty = (Specialty) o;
-        return Objects.equals(id, specialty.id);
+        return id == specialty.id
+                && Objects.equals(title, specialty.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, title);
     }
 }

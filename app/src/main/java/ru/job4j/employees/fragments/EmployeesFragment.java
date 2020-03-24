@@ -12,21 +12,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ru.job4j.employees.R;
 import ru.job4j.employees.model.Employee;
-import ru.job4j.employees.store.EmployeesStore;
+import ru.job4j.employees.store.SqlStore;
 
 public class EmployeesFragment extends Fragment {
     private RecyclerView recycler;
     private EmployeeSelect select;
-    static int specialtyId;
-    static int specialtyPosition;
+    private SqlStore sqlStore = SqlStore.getInstance(getContext());
+    private static int specialtyId;
 
     public interface EmployeeSelect {
-        void selected(int index);
+        void selected(int index, int id, String specialty);
     }
 
     @Nullable
@@ -38,28 +37,20 @@ public class EmployeesFragment extends Fragment {
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         specialtyId = getArguments().getInt(SpecialtiesFragment.SPECIALTY_ID);
-        specialtyPosition = getArguments().getInt(SpecialtiesFragment.SPECIALTY_POSITION);
         updateUI();
         return view;
     }
 
     private void updateUI() {
-        List<Employee> employees = EmployeesStore.getInstance().getEmployees();
-        List<Employee> selective = new ArrayList<>();
-        for (Employee employee : employees) {
-            if (employee.getSpecialtyId() == specialtyId) {
-                selective.add(employee);
-            }
-        }
-        RecyclerView.Adapter adapter = new EmployeeAdapter(selective, select);
+        List<Employee> employees = sqlStore.getSelectedEmployees(specialtyId);
+        RecyclerView.Adapter adapter = new EmployeeAdapter(employees, select);
         recycler.setAdapter(adapter);
     }
 
-    static EmployeesFragment of(int id, int position) {
+    static EmployeesFragment of(int id) {
         EmployeesFragment fragment = new EmployeesFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(SpecialtiesFragment.SPECIALTY_ID, id);
-        bundle.putInt(SpecialtiesFragment.SPECIALTY_POSITION, position);
         fragment.setArguments(bundle);
         return fragment;
     }

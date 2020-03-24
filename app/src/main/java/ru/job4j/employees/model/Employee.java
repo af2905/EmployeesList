@@ -3,16 +3,33 @@ package ru.job4j.employees.model;
 import java.util.Objects;
 
 public class Employee {
+    private int id;
     private String name;
-    private String dateOfBirth;
-    private int specialtyId;
+    private String birth;
+    private Specialty specialty;
     private int photo;
 
-    public Employee(String name, String dateOfBirth, int specialtyId, int photo) {
+    public Employee(int id, String name, String birth, Specialty specialty, int photo) {
+        this.id = id;
         this.name = name;
-        this.dateOfBirth = dateOfBirth;
-        this.specialtyId = specialtyId;
+        this.birth = birth;
+        this.specialty = specialty;
         this.photo = photo;
+    }
+
+    public Employee(String name, String birth, Specialty specialty, int photo) {
+        this.name = name;
+        this.birth = birth;
+        this.specialty = specialty;
+        this.photo = photo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -23,20 +40,20 @@ public class Employee {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public String getBirth() {
+        return birth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirth(String birth) {
+        this.birth = birth;
     }
 
-    public int getSpecialtyId() {
-        return specialtyId;
+    public Specialty getSpecialty() {
+        return specialty;
     }
 
-    public void setSpecialtyId(int specialtyId) {
-        this.specialtyId = specialtyId;
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
     }
 
     public int getPhoto() {
@@ -56,14 +73,15 @@ public class Employee {
             return false;
         }
         Employee employee = (Employee) o;
-        return photo == employee.photo
+        return id == employee.id
+                && specialty == employee.specialty
+                && photo == employee.photo
                 && Objects.equals(name, employee.name)
-                && Objects.equals(dateOfBirth, employee.dateOfBirth)
-                && Objects.equals(specialtyId, employee.specialtyId);
+                && Objects.equals(birth, employee.birth);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, dateOfBirth, specialtyId, photo);
+        return Objects.hash(id, name, birth, specialty, photo);
     }
 }

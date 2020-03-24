@@ -6,6 +6,8 @@ public class EmployeeActivity extends BaseActivity {
     @Override
     public Fragment loadFrg() {
         return EmployeeFragment.of(getIntent()
-                .getIntExtra("index", 0));
+                .getIntExtra("index", -1),
+                getIntent().getIntExtra("id", -1),
+                getIntent().getStringExtra("specialty"));
     }
 }
